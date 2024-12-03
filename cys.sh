@@ -51,9 +51,9 @@ display_ascii() {
     echo -e "${CYAN}Полезные команды:${RESET}"
     echo -e "  - ${YELLOW}Просмотр файлов директории:${RESET} ll"
     echo -e "  - ${YELLOW}Вход в директорию:${RESET} cd hyperlane"
-    echo -е "  - ${YELLOW}Выход из директории:${RESET} cd .."
-    echo -е "  - ${YELLOW}Запуск меню скрипта (не установка) из директории hyperlane:${RESET} bash hyper.sh"
-    echo -е ""
+    echo -e "  - ${YELLOW}Выход из директории:${RESET} cd .."
+    echo -e "  - ${YELLOW}Запуск меню скрипта (не установка) из директории hyperlane:${RESET} bash hyper.sh"
+    echo -e ""
 }
 
 # Функция для установки ноды
@@ -150,15 +150,15 @@ show_menu() {
 
     echo -e "    ${YELLOW}Пожалуйста, выберите опцию:${RESET}"
     echo
-    echo -е "    ${CYAN}1.${RESET} ${ICON_INSTALL} Установка и настройка ноды"
-    echo -е "    ${CYAN}2.${RESET} ${ICON_START} Запуск ноды"
-    echo -е "    ${CYAN}3.${RESET} ${ICON_RESTART} Перезагрузка ноды"
-    echo -е "    ${CYAN}4.${RESET} ${ICON_LOGS} Просмотр логов"
-    echo -е "    ${CYAN}5.${RESET} ${ICON_DELETE} Удаление ноды"
+    echo -e "    ${CYAN}1.${RESET} ${ICON_INSTALL} Установка и настройка ноды"
+    echo -e "    ${CYAN}2.${RESET} ${ICON_START} Запуск ноды"
+    echo -e "    ${CYAN}3.${RESET} ${ICON_RESTART} Перезагрузка ноды"
+    echo -e "    ${CYAN}4.${RESET} ${ICON_LOGS} Просмотр логов"
+    echo -e "    ${CYAN}5.${RESET} ${ICON_DELETE} Удаление ноды"
     echo -е "    ${CYAN}6.${RESET} ${ICON_EXIT} Выйти из скрипта"
     draw_bottom_border
     echo -е "${CYAN}╔══════════════════════════════════════════════════════╗${RESET}"
-    echo -е "${CYAN}║${RESET}              ${YELLOW}Введите свой выбор [1-6]:${RESET}           ${CYАН}║${RESET}"
+    echo -е "${CYAN}║${RESET}              ${YELLOW}Введите свой выбор [1-6]:${RESET}           ${CYAN}║${RESET}"
     echo -е "${CYАН}╚══════════════════════════════════════════════════════╝${RESET}"
     read -p " " choice
 }
