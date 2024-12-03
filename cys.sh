@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Определения цветов и форматирования
+# Цвета и форматирование
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 BLUE='\033[0;34m'
@@ -9,71 +9,50 @@ YELLOW='\033[1;33m'
 MAGENTA='\033[0;35m'
 RESET='\033[0m'
 
-# Иконки для пунктов меню
-ICON_TELEGRAM="🚀"
+# Иконки
 ICON_INSTALL="🛠️"
-ICON_SSH="🔑"
 ICON_START="▶️"
 ICON_RESTART="🔄"
 ICON_LOGS="📄"
 ICON_DELETE="🗑️"
 ICON_EXIT="❌"
 
-# Функции для рисования границ
-draw_top_border() {
-    echo -e "${CYAN}╔══════════════════════════════════════════════════════════════════════╗${RESET}"
+# Функции для рисования
+draw_border() {
+    echo -e "${CYAN}╔════════════════════════════════════════════════════════╗${RESET}"
 }
 
-draw_middle_border() {
-    echo -e "${CYAN}╠══════════════════════════════════════════════════════════════════════╣${RESET}"
+draw_middle() {
+    echo -e "${CYAN}╠════════════════════════════════════════════════════════╣${RESET}"
 }
 
-draw_bottom_border() {
-    echo -e "${CYAN}╚══════════════════════════════════════════════════════════════════════╝${RESET}"
+draw_bottom() {
+    echo -e "${CYAN}╚════════════════════════════════════════════════════════╝${RESET}"
 }
 
-print_telegram_icon() {
-    echo -e "          ${MAGENTA}${ICON_TELEGRAM} Подписывайтесь на наш Telegram!${RESET}"
-}
-
-# Логотип и информация
-display_ascii() {
+# Логотип
+display_logo() {
     echo -e "${CYAN}   ____   _  __   ___    ____ _   __   ____ ______   ____   ___    ____${RESET}"
     echo -e "${CYAN}  /  _/  / |/ /  / _ \\  /  _/| | / /  /  _//_  __/  /  _/  / _ |  / __/${RESET}"
     echo -e "${CYAN} _/ /   /    /  / // / _/ /  | |/ /  _/ /   / /    _/ /   / __ | _\\ \\  ${RESET}"
     echo -e "${CYAN}/___/  /_/|_/  /____/ /___/  |___/  /___/  /_/    /___/  /_/ |_|/___/  ${RESET}"
-    echo -e ""
-    echo -e "${YELLOW}Подписывайтесь на Telegram: https://t.me/CryptalikBTC${RESET}"
-    echo -e "${YELLOW}Подписывайтесь на YouTube: https://www.youtube.com/@Cryptalik${RESET}"
-    echo -e "${YELLOW}Здесь про аирдропы и ноды: https://t.me/indivitias${RESET}"
-    echo -e "${YELLOW}Купи мне крипто бутылочку... кефира 😏${RESET} ${MAGENTA} 👉  https://bit.ly/4eBbfIr  👈 ${MAGENTA}"
-    echo -e ""
-    echo -e "${CYAN}Полезные команды:${RESET}"
-    echo -e "  - ${YELLOW}Просмотр файлов директории:${RESET} ll"
-    echo -e "  - ${YELLOW}Вход в директорию:${RESET} cd hyperlane"
-    echo -e "  - ${YELLOW}Выход из директории:${RESET} cd .."
-    echo -e "  - ${YELLOW}Запуск меню скрипта (не установка) из директории hyperlane:${RESET} bash hyper.sh"
-    echo -e ""
 }
 
-# Функция для установки ноды
+# Установка
 install_node() {
-    echo 'Начинаю установку ноды...'
-
-    sudo apt-get update -y
-    sudo apt-get upgrade -y
+    echo -e "${YELLOW}Начинаем установку ноды...${RESET}"
+    sudo apt-get update -y && sudo apt-get upgrade -y
     sudo apt-get install -y make screen build-essential unzip lz4 gcc git jq
-
     read -p "Введите ваш EVM-кошелек: " evm_wallet
 
     curl -L https://github.com/cysic-labs/phase2_libs/releases/download/v1.0.0/setup_linux.sh > ~/setup_linux.sh
-    bash ~/setup_linux.sh $evm_wallet
-
-    cd ~/cysic-verifier/
+    bash ~/setup_linux.sh "$evm_wallet"
+    cd ~/cysic-verifier/ || exit
     bash start.sh
     sleep 5
     pkill -f start.sh
 
+    # Добавление в systemd
     sudo tee /etc/systemd/system/cysic.service > /dev/null <<EOF
 [Unit]
 Description=Cysic Verifier
@@ -82,7 +61,7 @@ After=network.target
 [Service]
 User=$USER
 WorkingDirectory=/root/cysic-verifier
-ExecStart=bash /root/cysic-verifier/start.sh
+ExecStart=/bin/bash /root/cysic-verifier/start.sh
 Restart=on-failure
 RestartSec=10
 LimitNOFILE=65535
@@ -94,99 +73,77 @@ EOF
     sudo systemctl enable cysic
     sudo systemctl daemon-reload
     sudo systemctl start cysic
-
-    echo "Нода Cysic успешно установлена и настроена."
+    echo -e "${GREEN}Установка завершена!${RESET}"
 }
 
-# Функция для запуска ноды
+# Запуск
 start_node() {
-    echo 'Запускаем ноду...'
+    echo -e "${YELLOW}Запускаем ноду...${RESET}"
     sudo systemctl start cysic
-    echo 'Нода запущена.'
+    echo -e "${GREEN}Нода запущена.${RESET}"
 }
 
-# Функция для перезагрузки ноды
+# Перезапуск
 restart_node() {
-    echo 'Перезагружаем ноду...'
+    echo -e "${YELLOW}Перезагружаем ноду...${RESET}"
     sudo systemctl restart cysic
-    echo 'Нода перезагружена.'
+    echo -e "${GREEN}Нода перезагружена.${RESET}"
 }
 
-# Функция для просмотра логов
+# Логи
 check_logs() {
+    echo -e "${YELLOW}Просмотр логов. Для выхода нажмите Ctrl+C.${RESET}"
     sudo journalctl -u cysic -f --no-hostname -o cat
 }
 
-# Функция для удаления ноды
+# Удаление
 delete_node() {
-    read -p 'Вы уверены, что хотите удалить ноду? (y/n): ' confirm
+    read -p "Вы уверены, что хотите удалить ноду? (y/n): " confirm
     if [[ $confirm == [yY] ]]; then
-        echo 'Удаляем ноду...'
         sudo systemctl stop cysic
         sudo systemctl disable cysic
         sudo rm /etc/systemd/system/cysic.service
         sudo systemctl daemon-reload
         sudo rm -rf ~/cysic-verifier
-        echo 'Нода удалена.'
+        echo -e "${RED}Нода удалена.${RESET}"
     else
-        echo 'Удаление ноды отменено.'
+        echo -e "${YELLOW}Удаление отменено.${RESET}"
     fi
 }
 
-# Функция для выхода из скрипта
-exit_from_script() {
+# Выход
+exit_script() {
+    echo -e "${YELLOW}Выход...${RESET}"
     exit 0
 }
 
-# Отображение меню
+# Меню
 show_menu() {
     clear
-    draw_top_border
-    display_ascii
-    draw_middle_border
-    print_telegram_icon
-    echo -e "    ${BLUE}Криптан, подпишись!: ${YELLOW}https://t.me/indivitias${RESET}"
-    draw_middle_border
-
-    echo -e "    ${YELLOW}Пожалуйста, выберите опцию:${RESET}"
-    echo
-    echo -e "    ${CYAN}1.${RESET} ${ICON_INSTALL} Установка и настройка ноды"
-    echo -e "    ${CYAN}2.${RESET} ${ICON_START} Запуск ноды"
-    echo -e "    ${CYAN}3.${RESET} ${ICON_RESTART} Перезагрузка ноды"
-    echo -e "    ${CYAN}4.${RESET} ${ICON_LOGS} Просмотр логов"
-    echo -e "    ${CYAN}5.${RESET} ${ICON_DELETE} Удаление ноды"
-    echo -e "    ${CYAN}6.${RESET} ${ICON_EXIT} Выйти из скрипта"
-    draw_bottom_border
-    echo -e "${CYAN}╔══════════════════════════════════════════════════════╗${RESET}"
-    echo -e "${CYAN}║${RESET}              ${YELLOW}Введите свой выбор [1-6]:${RESET}           ${CYAN}║${RESET}"
-    echo -e "${CYAN}╚══════════════════════════════════════════════════════╝${RESET}"
-    read -p " " choice
+    draw_border
+    display_logo
+    draw_middle
+    echo -e " ${CYAN}1.${RESET} ${ICON_INSTALL} Установка ноды"
+    echo -e " ${CYAN}2.${RESET} ${ICON_START} Запуск ноды"
+    echo -e " ${CYAN}3.${RESET} ${ICON_RESTART} Перезапуск"
+    echo -e " ${CYAN}4.${RESET} ${ICON_LOGS} Логи"
+    echo -e " ${CYAN}5.${RESET} ${ICON_DELETE} Удаление"
+    echo -e " ${CYAN}6.${RESET} ${ICON_EXIT} Выход"
+    draw_bottom
+    read -p "Ваш выбор [1-6]: " choice
 }
 
-# Основное меню
+# Основной цикл
 while true; do
     show_menu
     case $choice in
-        1)
-            install_node
-            ;;
-        2)
-            start_node
-            ;;
-        3)
-            restart_node
-            ;;
-        4)
-            check_logs
-            ;;
-        5)
-            delete_node
-            ;;
-        6)
-            exit_from_script
-            ;;
-        *)
-            echo "Неверный пункт. Пожалуйста, выберите правильную цифру в меню."
-            ;;
+        1) install_node ;;
+        2) start_node ;;
+        3) restart_node ;;
+        4) check_logs ;;
+        5) delete_node ;;
+        6) exit_script ;;
+        *) echo -e "${RED}Неверный выбор!${RESET}" ;;
     esac
+    sleep 1
 done
