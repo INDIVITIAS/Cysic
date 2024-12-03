@@ -152,17 +152,16 @@ show_menu() {
     echo
     echo -e "    ${CYAN}1.${RESET} ${ICON_INSTALL} Установка и настройка ноды"
     echo -e "    ${CYAN}2.${RESET} ${ICON_START} Запуск ноды"
-    echo -е "    ${CYAN}3.${RESET} ${ICON_RESTART} Перезагрузка ноды"
-    echo -е "    ${CYAN}4.${RESET} ${ICON_LOGS} Просмотр логов"
-    echo -е "    ${CYAN}5.${RESET} ${ICON_DELETE} Удаление ноды"
-    echo -е "    ${CYAN}6.${RESET} ${ICON_EXIT} Выйти из скрипта"
+    echo -e "    ${CYAN}3.${RESET} ${ICON_RESTART} Перезагрузка ноды"
+    echo -e "    ${CYAN}4.${RESET} ${ICON_LOGS} Просмотр логов"
+    echo -e "    ${CYAN}5.${RESET} ${ICON_DELETE} Удаление ноды"
+    echo -e "    ${CYAN}6.${RESET} ${ICON_EXIT} Выйти из скрипта"
     draw_bottom_border
-    echo -е "${CYAN}╔══════════════════════════════════════════════════════╗${RESET}"
-    echo -е "${CYAN}║${RESET}              ${YELLOW}Введите свой выбор [1-6]:${RESET}           ${CYAN}║${RESET}"
-    echo -е "${CYАН}╚══════════════════════════════════════════════════════╝${RESET}"
+    echo -e "${CYAN}╔══════════════════════════════════════════════════════╗${RESET}"
+    echo -e "${CYAN}║${RESET}              ${YELLOW}Введите свой выбор [1-6]:${RESET}           ${CYAN}║${RESET}"
+    echo -e "${CYAN}╚══════════════════════════════════════════════════════╝${RESET}"
     read -p " " choice
 }
-
 
 # Основное меню
 while true; do
