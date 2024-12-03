@@ -46,11 +46,11 @@ display_ascii() {
     echo -e "${YELLOW}Подписывайтесь на Telegram: https://t.me/CryptalikBTC${RESET}"
     echo -e "${YELLOW}Подписывайтесь на YouTube: https://www.youtube.com/@Cryptalik${RESET}"
     echo -e "${YELLOW}Здесь про аирдропы и ноды: https://t.me/indivitias${RESET}"
-    echo -е "${YELLOW}Купи мне крипто бутылочку... кефира 😏${RESET} ${MAGENTA} 👉  https://bit.ly/4eBbfIr  👈 ${MAGENTA}"
-    echo -е ""
-    echo -е "${CYAN}Полезные команды:${RESET}"
-    echo -е "  - ${YELLOW}Просмотр файлов директории:${RESET} ll"
-    echo -е "  - ${YELLOW}Вход в директорию:${RESET} cd hyperlane"
+    echo -e "${YELLOW}Купи мне крипто бутылочку... кефира 😏${RESET} ${MAGENTA} 👉  https://bit.ly/4eBbfIr  👈 ${MAGENTA}"
+    echo -e ""
+    echo -e "${CYAN}Полезные команды:${RESET}"
+    echo -e "  - ${YELLOW}Просмотр файлов директории:${RESET} ll"
+    echo -e "  - ${YELLOW}Вход в директорию:${RESET} cd hyperlane"
     echo -е "  - ${YELLOW}Выход из директории:${RESET} cd .."
     echo -е "  - ${YELLOW}Запуск меню скрипта (не установка) из директории hyperlane:${RESET} bash hyper.sh"
     echo -е ""
@@ -58,7 +58,7 @@ display_ascii() {
 
 # Функция для установки ноды
 install_node() {
-    echo 'Начинаю установку и настройку ноды...'
+    echo 'Начинаю установку ноды...'
 
     sudo apt-get update -y
     sudo apt-get upgrade -y
@@ -150,8 +150,8 @@ show_menu() {
 
     echo -e "    ${YELLOW}Пожалуйста, выберите опцию:${RESET}"
     echo
-    echo -e "    ${CYAN}1.${RESET} ${ICON_INSTALL} Установка и настройка ноды"
-    echo -e "    ${CYAN}2.${RESET} ${ICON_START} Запуск ноды"
+    echo -е "    ${CYAN}1.${RESET} ${ICON_INSTALL} Установка и настройка ноды"
+    echo -е "    ${CYAN}2.${RESET} ${ICON_START} Запуск ноды"
     echo -е "    ${CYAN}3.${RESET} ${ICON_RESTART} Перезагрузка ноды"
     echo -е "    ${CYAN}4.${RESET} ${ICON_LOGS} Просмотр логов"
     echo -е "    ${CYAN}5.${RESET} ${ICON_DELETE} Удаление ноды"
