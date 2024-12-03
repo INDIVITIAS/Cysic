@@ -56,7 +56,6 @@ display_ascii() {
     echo -e ""
 }
 
-
 # Функция для установки ноды
 install_node() {
     echo 'Начинаю установку ноды...'
@@ -144,19 +143,19 @@ show_menu() {
     display_ascii
     draw_middle_border
     print_telegram_icon
-    echo -е "    ${BLUE}Криптан, подпишись!: ${YELLOW}https://t.me/indivitias${RESET}"
+    echo -e "    ${BLUE}Криптан, подпишись!: ${YELLOW}https://t.me/indivitias${RESET}"
     draw_middle_border
 
-    echo -е "    ${YELLOW}Пожалуйста, выберите опцию:${RESET}"
+    echo -e "    ${YELLOW}Пожалуйста, выберите опцию:${RESET}"
     echo
-    echo -е "    ${CYAN}1.${RESET} ${ICON_INSTALL} Установка и настройка ноды"
-    echo -е "    ${CYАН}2.${RESET} ${ICON_START} Запуск ноды"
-    echo -е "    ${CYАН}3.${RESET} ${ICON_RESTART} Перезагрузка ноды"
-    echo -е "    ${CYАН}4.${RESET} ${ICON_LOGS} Просмотр логов"
-    echo -е "    ${CYАН}5.${RESET} ${ICON_DELETE} Удаление ноды"
-    echo -е "    ${CYАН}6.${RESET} ${ICON_EXIT} Выйти из скрипта"
+    echo -e "    ${CYAN}1.${RESET} ${ICON_INSTALL} Установка и настройка ноды"
+    echo -e "    ${CYAN}2.${RESET} ${ICON_START} Запуск ноды"
+    echo -е "    ${CYAN}3.${RESET} ${ICON_RESTART} Перезагрузка ноды"
+    echo -е "    ${CYAN}4.${RESET} ${ICON_LOGS} Просмотр логов"
+    echo -е "    ${CYAN}5.${RESET} ${ICON_DELETE} Удаление ноды"
+    echo -е "    ${CYAN}6.${RESET} ${ICON_EXIT} Выйти из скрипта"
     draw_bottom_border
-    echo -е "${CYАН}╔══════════════════════════════════════════════════════╗${RESET}"
+    echo -е "${CYAN}╔══════════════════════════════════════════════════════╗${RESET}"
     echo -е "${CYАН}║${RESET}              ${YELLOW}Введите свой выбор [1-6]:${RESET}           ${CYАН}║${RESET}"
     echo -е "${CYАН}╚══════════════════════════════════════════════════════╝${RESET}"
     read -p " " choice
